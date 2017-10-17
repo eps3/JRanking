@@ -1,0 +1,26 @@
+server:
+  port: 19007
+
+spring:
+  #SQL_CONN_SETTING
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/db_test?characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    testOnBorrow: true
+    validationQuery: SELECT 1
+    hikari:
+      maximum-pool-size: 20
+  jpa:
+    database: mysql
+#    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  thymeleaf:
+    mode: LEGACYHTML5
