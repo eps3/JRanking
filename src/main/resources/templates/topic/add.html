@@ -1,0 +1,31 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="common/layout">
+<head>
+    <title>Ranking-主页</title>
+</head>
+<body>
+<div layout:fragment="content" class="am-g">
+    <div class="am-u-sm-8 am-u-sm-offset-2">
+        <form class="am-form" method="post" action="/topic">
+            <fieldset>
+                <legend>新增主题</legend>
+                <p th:text="${msg}"></p>
+                <p th:text="${result}"></p>
+                <div class="am-form-group">
+                    <label for="doc-ipt-email-1">主题</label>
+                    <input type="text" name="name" id="doc-ipt-email-1" placeholder="输入主题名称">
+                </div>
+                <br/>
+                <div class="am-form-group">
+                    <label for="doc-ta-1">主题说明</label>
+                    <textarea class="" name="desc" rows="5" id="doc-ta-1"></textarea>
+                </div>
+                <p><button type="submit" class="am-btn am-btn-default">提交</button></p>
+            </fieldset>
+        </form>
+    </div>
+</div>
+</body>
+</html>
