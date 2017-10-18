@@ -33,9 +33,14 @@
     <div class="am-collapse am-topbar-collapse" id="blog-collapse">
         <ul class="am-nav am-nav-pills am-topbar-nav">
             <li class="am-active"><a href="/">首页</a></li>
+            <li class="am-active"><a href="/ranking">排行</a></li>
+            <li class="am-active"><a href="/card">打卡</a></li>
         </ul>
         <div class="am-topbar-right am-form-inline">
-            <ul class="am-nav am-nav-pills am-topbar-nav">
+            <ul class="am-nav am-nav-pills am-topbar-nav" th:if="${@userService.getUser()!=null}">
+                <li><a href="/logout">退出</a></li>
+            </ul>
+            <ul class="am-nav am-nav-pills am-topbar-nav" th:if="${@userService.getUser()==null}">
                 <li><a href="/login">登录</a></li>
                 <li><a href="/register">注册</a></li>
             </ul>
@@ -44,8 +49,44 @@
 </nav>
 <hr/>
 <!-- nav end -->
-<div layout:fragment="content">
-    <p>Content goes here...</p>
+<div class="am-g am-g-fixed blog-fixed">
+    <div class="am-u-md-9 am-u-sm-12">
+        <div layout:fragment="content">
+            <p>Content goes here...</p>
+        </div>
+    </div>
+    <div class="am-u-md-3 am-u-sm-12 blog-sidebar">
+        <div class="blog-sidebar-widget blog-bor" th:if="${@userService.getUser()!=null}">
+            <h3 class="blog-text-center blog-title">
+                <span th:text="${@userService.getUser().getName()}">不知</span>
+            </h3>
+            <p th:text="'你好,'+${@userService.getUser().getName()}"></p>
+        </div>
+        <div class="blog-sidebar-widget blog-bor" th:if="${@userService.getUser()==null}">
+            <h2 class="blog-text-center blog-title"><span>用户</span></h2>
+            <p>
+                你还没有
+                <button><a href="/login">登录</a></button>
+            </p>
+            <p>
+                或者去
+                <button><a href="/register">注册</a></button>
+                ?
+            </p>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-text-center blog-title"><span>Rinking</span></h2>
+            <p>
+                我是Rinking，一个打卡排行榜网站
+            </p>
+        </div>
+        <div class="blog-sidebar-widget blog-bor">
+            <h2 class="blog-title"><span>通告</span></h2>
+            <ul class="am-list">
+                <li><a href="#">我们都是共产主义的接班人</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
 <footer class="log-footer">
     <hr/>

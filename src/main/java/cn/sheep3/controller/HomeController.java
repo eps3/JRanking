@@ -1,6 +1,7 @@
 package cn.sheep3.controller;
 
 import cn.sheep3.entity.User;
+import cn.sheep3.exception.KnownSystemException;
 import cn.sheep3.model.RegisterForm;
 import cn.sheep3.repository.UserRepository;
 import cn.sheep3.service.UserService;
@@ -43,31 +44,30 @@ public class HomeController {
     }
 
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-    public String registerPost(@Valid RegisterForm registerForm, BindingResult bindingResult) {
-        log.info("收到注册用 _ >" + registerForm);
-        if (bindingResult.hasErrors()) {
+    public String registerPost(@Valid RegisterForm registerForm, BindingResult bindingResult, Model model) {
+        try {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("result", "你的输入有误请检查你的输入");
+                model.addAttribute("registerForm", registerForm);
+                return "register";
+            }
+            userService.register(registerForm);
+        } catch (KnownSystemException e) {
+            model.addAttribute("msg", e.getMessage());
             return "register";
         }
-        User user = new User();
-        user.setName(registerForm.getUsername());
-        user.setRole("USER");
-        user.setPassword(registerForm.getPassword());
-        user.setEmail(registerForm.getEmail());
-        user.setDesc("");
-        PassWordUtil.fuckUser(user);
-        userService.addUser(user);
         return "redirect:/login";
     }
 
-    @RequestMapping(value = {"/login"}, method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
                         Model model) {
         if (error != null) {
-            model.addAttribute("error", "Invalid username or password!");
+            model.addAttribute("error", "错误的用户名或密码!");
         }
         if (logout != null) {
-            model.addAttribute("msg", "You've been logged out successfully.");
+            model.addAttribute("msg", "退出成功!");
         }
         return "login";
     }
