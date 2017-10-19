@@ -25,10 +25,10 @@ public class UserTopic {
     private Long id;
 
     @Column(name = "c_topic_id", nullable = false)
-    private Long topic_id;
+    private Long topicId;
 
     @Column(name = "c_user_id", nullable = false)
-    private Long user_id;
+    private Long userId;
 
     @Column(name = "c_create_time")
     @CreatedDate

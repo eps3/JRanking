@@ -14,23 +14,24 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "t_topics")
+@Table(name = "t_cards")
 @EntityListeners({AuditingEntityListener.class})
 @NoArgsConstructor
-public class Topic {
+public class Card {
+
     @Id
     @Column(name = "c_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "c_name", unique = true, nullable = false)
-    private String name;
-
-    @Column(name = "c_desc", nullable = false)
-    private String desc;
+    @Column(name = "c_topic_id", nullable = false)
+    private Long topicId;
 
     @Column(name = "c_user_id", nullable = false)
     private Long userId;
+
+    @Column(name = "c_desc", nullable = false)
+    private String desc;
 
     @Column(name = "c_create_time")
     @CreatedDate

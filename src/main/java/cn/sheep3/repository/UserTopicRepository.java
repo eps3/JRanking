@@ -8,4 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface UserTopicRepository extends CrudRepository<UserTopic, Long> {
 
+    public UserTopic findFirstByUserIdAndTopicId(Long userId, Long topicId);
+
 }

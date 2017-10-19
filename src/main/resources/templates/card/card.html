@@ -3,11 +3,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="common/layout">
 <head>
-    <title>Ranking-主页</title>
+    <title>Ranking-打卡</title>
 </head>
 <body>
-<div layout:fragment="content" class="am-g am-g-fixed blog-fixed">
-    <h2>hello world!!!</h2>
+<div layout:fragment="content" class="am-g">
+    <h2>我关注的主题</h2>
+    <br/>
+    <hr/>
+    <br/>
+    <table class="am-table">
+        <thead>
+        <tr>
+            <th>主题</th>
+            <th>描述</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="topic : ${topicList}">
+            <tr>
+                <td th:text="${topic.name}"></td>
+                <td th:text="${topic.desc}"></td>
+                <td th:text="${topic.create_time}"></td>
+                <td><button type="button" class="am-btn am-btn-secondary am-radius">打卡</button></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

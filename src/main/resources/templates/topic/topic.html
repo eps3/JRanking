@@ -30,7 +30,7 @@
                 <td th:text="${topic.name}"></td>
                 <td th:text="${topic.desc}"></td>
                 <td th:text="${topic.create_time}"></td>
-                <td><button type="button" class="am-btn am-btn-secondary am-radius">关注</button></td>
+                <td><a th:href="'/topic/' + ${topic.id} + '/follow'"><button type="button" class="am-btn am-btn-secondary am-radius">关注</button></a></td>
             </tr>
         </th:block>
         </tbody>

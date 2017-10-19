@@ -1,5 +1,6 @@
 package cn.sheep3.controller;
 
+import cn.sheep3.entity.Topic;
 import cn.sheep3.exception.KnownSystemException;
 import cn.sheep3.model.RegisterForm;
 import cn.sheep3.model.TopicForm;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,6 +49,18 @@ public class TopicController {
             return "topic/add";
         }
         return "topic/add";
+    }
+
+    @RequestMapping(value = {"/topic/{topic_id}/follow"}, method = RequestMethod.GET)
+    public String follow(@PathVariable Long topic_id, Model model) {
+        try {
+            Topic topic = topicService.followTopic(topic_id);
+            model.addAttribute("msg", topic.getName() + " 订阅成功 !");
+            return "redirect:/card";
+        } catch (KnownSystemException e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/topic";
+        }
     }
 
     @RequestMapping(value = {"/topic/add"}, method = RequestMethod.GET)
