@@ -29,7 +29,7 @@ public class TopicController {
     @RequestMapping(value = {"/topic"}, method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("topicList",topicService.getAllTopic());
-        return "topic";
+        return "topic/topic";
     }
 
     @RequestMapping(value = {"/topic"}, method = RequestMethod.POST)
